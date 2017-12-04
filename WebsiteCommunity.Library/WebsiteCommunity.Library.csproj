@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F0BC1A9D-0719-451F-B4A3-31EF008478FF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>WebsiteCommunity</RootNamespace>
-    <AssemblyName>WebsiteCommunity</AssemblyName>
+    <ProjectGuid>{08C00E74-AB64-4941-A837-93018F3FE60B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebsiteCommunity.Library</RootNamespace>
+    <AssemblyName>WebsiteCommunity.Library</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,21 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="DisposePatternExample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WebsiteCommunity.Models\WebsiteCommunity.Models.csproj">
-      <Project>{b457b11b-1392-4cd8-a848-19dc0ab4759e}</Project>
-      <Name>WebsiteCommunity.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebsiteCommunity.Repository\WebsiteCommunity.Repository.csproj">
-      <Project>{9c1131c3-aa21-40c1-8096-f73dff2a8c7b}</Project>
-      <Name>WebsiteCommunity.Repository</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

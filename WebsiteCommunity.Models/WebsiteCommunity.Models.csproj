@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F0BC1A9D-0719-451F-B4A3-31EF008478FF}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>WebsiteCommunity</RootNamespace>
-    <AssemblyName>WebsiteCommunity</AssemblyName>
+    <ProjectGuid>{B457B11B-1392-4CD8-A848-19DC0AB4759E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebsiteCommunity.Models</RootNamespace>
+    <AssemblyName>WebsiteCommunity.Models</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,21 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Archive.cs" />
+    <Compile Include="Department.cs" />
+    <Compile Include="Event.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="ImgPhotoGallery.cs" />
+    <Compile Include="PhotoGallery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WebsiteCommunity.Models\WebsiteCommunity.Models.csproj">
-      <Project>{b457b11b-1392-4cd8-a848-19dc0ab4759e}</Project>
-      <Name>WebsiteCommunity.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebsiteCommunity.Repository\WebsiteCommunity.Repository.csproj">
-      <Project>{9c1131c3-aa21-40c1-8096-f73dff2a8c7b}</Project>
-      <Name>WebsiteCommunity.Repository</Name>
-    </ProjectReference>
+    <Compile Include="Video.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
