@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteCommunity", "Website
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteCommunity.Library", "WebsiteCommunity.Library\WebsiteCommunity.Library.csproj", "{08C00E74-AB64-4941-A837-93018F3FE60B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{F7193CAF-9BEC-4EAD-80F4-60B0092125D1}"
+	ProjectSection(SolutionItems) = preProject
+		D:\work\CreateDBandSP.sql = D:\work\CreateDBandSP.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
