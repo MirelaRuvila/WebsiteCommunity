@@ -12,43 +12,6 @@ namespace WebsiteCommunity.Repository
     public class DepartmentRepository : BaseRepository<Department>
     {
         #region Methods
-        /*
-        public List<Department> ReadAll1()
-         {
-             List<Department> departments = new List<Department>();
-
-             using (SqlConnection connection = new SqlConnection(connectionString))
-             {
-                 try
-                 {
-                     using (SqlCommand command = new SqlCommand())
-                     {
-                         command.Connection = connection;
-                         command.CommandText = "dbo.Departments_ReadAll";
-                         command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                         connection.Open();
-                         using (SqlDataReader reader = command.ExecuteReader())
-                         {
-                             while (reader.Read())
-                             {
-                                 Department department = new Department();
-                                 department.DepartmentID = reader.GetGuid(reader.GetOrdinal("DepartmentID"));
-                                 department.DepartmentName = reader.GetString(reader.GetOrdinal("DepartmentName"));
-                                 department.Description = reader.GetString(reader.GetOrdinal("Description"));
-                                 departments.Add(department);
-                             }
-                         }
-                     }
-                 }
-                 catch(Exception ex)
-                 {
-                     Console.WriteLine("There was an error: {0}", ex.ToString());
-                 }
-             }
-             return departments;
-         }
-        */  
         public List<Department> ReadAll()
         {
             return DatabaseManager.ReadAll<Department>(connectionString, "dbo.Departments_ReadAll",
