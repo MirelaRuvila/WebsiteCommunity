@@ -54,35 +54,7 @@ namespace WebsiteCommunity.Repository
         }
         public void UpdateById(Archive archive)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.Archives_UpdateById";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@ArchiveID", archive.ArchiveID));
-                command.Parameters.Add(new SqlParameter("@ArchiveName", archive.ArchiveName));
-                command.Parameters.Add(new SqlParameter("@VideoID", archive.VideoID));
-                command.Parameters.Add(new SqlParameter("@Data", archive.Data));
-                command.Parameters.Add(new SqlParameter("@Description", archive.Description));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.UpdateById<Archive>(connectionString, "Archives_UpdateById", GetParameters);
         }
         public void DeleteById(Guid id)
         {
@@ -98,11 +70,13 @@ namespace WebsiteCommunity.Repository
             archive.Description = reader.GetString(reader.GetOrdinal("Description"));
             return archive;
         }
-        protected override SqlParameter[] GetParameters(SqlParameter[] parameter)
+        protected override SqlParameter[] GetParameters(Archive archive)
         {
-            Department department = new Department();
-            SqlCommand command = new SqlCommand();
-            //SqlParameter parameter = new SqlParameter();
+            SqlParameter[] parameter = { new SqlParameter("@ArchiveID", archive.ArchiveID),
+                                         new SqlParameter("@ArchiveName", archive.ArchiveName),
+                                         new SqlParameter("@Description", archive.Description),
+                                         new SqlParameter("@Data", archive.Data),
+                                         new SqlParameter("@VideoID", archive.VideoID) };
             return parameter;
         }
         #endregion 

@@ -27,7 +27,7 @@ namespace WebsiteCommunity.Repository.Core
             return connectionStringSettings.ConnectionString;
         }
         protected abstract TModel GetModelFromReader(SqlDataReader reader);
-        protected abstract SqlParameter[] GetParameters(SqlParameter[] parameter);
+        protected abstract SqlParameter[] GetParameters(TModel model);
         #endregion
 
     }

@@ -18,33 +18,7 @@ namespace WebsiteCommunity.Repository
         }
         public void Insert(PhotoGallery photoGallery)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.PhotoGallery_Create";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@PhotoGalleryID", photoGallery.PhotoGalleryID));
-                command.Parameters.Add(new SqlParameter("@PhotoGalleryName", photoGallery.PhotoGalleryName));
-                command.Parameters.Add(new SqlParameter("@Description", photoGallery.Description));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.Insert<PhotoGallery>(connectionString, "PhotoGallery_Create", GetParameters);
         }       
         public void ReadById(Guid id)
         {
@@ -52,33 +26,7 @@ namespace WebsiteCommunity.Repository
         }
         public void UpdateById(PhotoGallery photoGallery)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.PhotoGallery_UpdateById";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@PhotoGalleryID", photoGallery.PhotoGalleryID));
-                command.Parameters.Add(new SqlParameter("@PhotoGalleryName", photoGallery.PhotoGalleryName));
-                command.Parameters.Add(new SqlParameter("@Description", photoGallery.Description));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.UpdateById<PhotoGallery>(connectionString, "PhotoGallery_UpdateById", GetParameters);
         }
         public void DeleteById(Guid id)
         {
@@ -92,11 +40,11 @@ namespace WebsiteCommunity.Repository
             photoGallery.Description = reader.GetString(reader.GetOrdinal("Description"));
             return photoGallery;
         }
-        protected override SqlParameter[] GetParameters(SqlParameter[] parameter)
+        protected override SqlParameter[] GetParameters(PhotoGallery photoGallery)
         {
-            Department department = new Department();
-            SqlCommand command = new SqlCommand();
-            //SqlParameter parameter = new SqlParameter();
+            SqlParameter[] parameter = { new SqlParameter("@PhotoGalleryID", photoGallery.PhotoGalleryID),
+                                         new SqlParameter("@PhotoGalleryName", photoGallery.PhotoGalleryName),
+                                         new SqlParameter("@Description", photoGallery.Description) };
             return parameter;
         }
         #endregion 

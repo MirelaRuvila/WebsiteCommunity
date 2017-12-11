@@ -18,32 +18,7 @@ namespace WebsiteCommunity.Repository
         }
         public void Insert(Image image)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.Images_Create";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@ImageID", image.ImageID));
-                command.Parameters.Add(new SqlParameter("@ImageName", image.ImageName));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.Insert<Image>(connectionString, "Images_Create", GetParameters);
         }        
         public void ReadById(Guid id)
         {
@@ -51,32 +26,7 @@ namespace WebsiteCommunity.Repository
         }
         public void UpdateById(Image image)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.Images_UpdateById";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@ImageID", image.ImageID));
-                command.Parameters.Add(new SqlParameter("@ImageName", image.ImageName));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.UpdateById<Image>(connectionString, "Images_UpdateById", GetParameters);
         }
         public void DeleteById(Guid id)
         {
@@ -90,11 +40,10 @@ namespace WebsiteCommunity.Repository
             return image;
 
         }
-        protected override SqlParameter[] GetParameters(SqlParameter[] parameter)
+        protected override SqlParameter[] GetParameters(Image image)
         {
-            Department department = new Department();
-            SqlCommand command = new SqlCommand();
-            //SqlParameter parameter = new SqlParameter();
+            SqlParameter[] parameter = { new SqlParameter("@ImageID", image.ImageID),
+                                         new SqlParameter("@ImageName", image.ImageName) };
             return parameter;
         }
         #endregion

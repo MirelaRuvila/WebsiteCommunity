@@ -55,6 +55,7 @@ namespace WebsiteCommunity.Repository
                 GetModelFromReader);
             //return ReadAll("dbo.Students_ReadAll");
         }
+
         public void Insert(Department department)
         {
             DatabaseManager.Insert<Department>(connectionString, "Departments_Create", GetParameters);
@@ -65,33 +66,7 @@ namespace WebsiteCommunity.Repository
         }
         public void UpdateById(Department department)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.Departments_UpdateById";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-               
-                command.Parameters.Add(new SqlParameter("@DepartmentID", department.DepartmentID));
-                command.Parameters.Add(new SqlParameter("@DepartmentName", department.DepartmentName));
-                command.Parameters.Add(new SqlParameter("@Description", department.Description));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.UpdateById<Department>(connectionString, "Departments_UpdateById", GetParameters);     
         }        
         public void DeleteById(Guid id)
         {
@@ -106,14 +81,11 @@ namespace WebsiteCommunity.Repository
             department.Description = reader.GetString(reader.GetOrdinal("Description"));
             return department;
         }
-        protected override SqlParameter[] GetParameters(SqlParameter[] parameter)
+        protected override SqlParameter[] GetParameters(Department department)
         {
-            Department department = new Department();
-            SqlCommand command = new SqlCommand();
-            //SqlParameter[] parameter = default(SqlParameter[]);
-            parameter[0] = new SqlParameter("@DepartmentID", department.DepartmentID);
-            parameter[1] = new SqlParameter("@DepartmentName", department.DepartmentName);
-            parameter[2] = new SqlParameter("@Description", department.Description);
+            SqlParameter[] parameter = { new SqlParameter("@DepartmentID", department.DepartmentID),
+                                         new SqlParameter("@DepartmentName", department.DepartmentName),
+                                         new SqlParameter("@Description", department.Description) };
             return parameter;
         }
         

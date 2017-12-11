@@ -10,9 +10,7 @@ namespace WebsiteCommunity.Repository.Core
     internal class DatabaseManager
     {
         #region Methods
-        public static List<TModel> ReadAll<TModel>(string connectionString, string storedProcedureName,
-            Func<SqlDataReader, TModel> getModelFromReader,
-            SqlParameter[] parameters = default(SqlParameter[]))
+        public static List<TModel> ReadAll<TModel>(string connectionString, string storedProcedureName, Func<SqlDataReader, TModel> getModelFromReader, SqlParameter[] parameters = default(SqlParameter[]))
         {
             List<TModel> result = new List<TModel>();
 
@@ -46,7 +44,8 @@ namespace WebsiteCommunity.Repository.Core
 
             return result;
         }
-        public static void Insert<TModel>(string connectionString, string storedProcedureName, Func<SqlParameter[], SqlParameter[]> getParameters, SqlParameter[] parameters = default(SqlParameter[]))
+        public static void Insert<TModel>(string connectionString, string storedProcedureName, Func<TModel, SqlParameter[]> getParameters, SqlParameter[] parameters = default(SqlParameter[]))
+            where TModel : new()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -57,11 +56,10 @@ namespace WebsiteCommunity.Repository.Core
                         command.Connection = connection;
                         command.CommandText = storedProcedureName;
                         command.CommandType = System.Data.CommandType.StoredProcedure;
-                        SqlParameter[] parameter = default(SqlParameter[]);
-                        //parameters = getParameters();
+                        TModel model = new TModel();
+                        parameters = getParameters(model);
                         if (parameters != null)
-                             command.Parameters.AddRange(getParameters(parameters));
-                        
+                           command.Parameters.AddRange(parameters);
                         connection.Open();
                     }
                 }
@@ -127,6 +125,36 @@ namespace WebsiteCommunity.Repository.Core
                 command.ExecuteNonQuery();
             }
 
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("There was an error: {0}", ex.ToString());
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public static void UpdateById<TModel>(string connectionString, string storedProcedureName, Func<TModel, SqlParameter[]> getParameters, SqlParameter[] parameters = default(SqlParameter[]))
+            where TModel : new()
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandText = storedProcedureName;
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                TModel model = new TModel();
+                parameters = getParameters(model);
+                if (parameters != null)
+                    command.Parameters.AddRange(parameters);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
             catch (SqlException sqlEx)
             {
                 Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());

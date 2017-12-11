@@ -18,33 +18,7 @@ namespace WebsiteCommunity.Repository
         }
         public void Insert(Event event1)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.Events_Create";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@EventID", event1.EventID));
-                command.Parameters.Add(new SqlParameter("@EventName", event1.EventName));
-                command.Parameters.Add(new SqlParameter("@Description", event1.Description));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.Insert<Event>(connectionString, "Events_Create", GetParameters);
         }
         public void ReadById(Guid id)
         {
@@ -52,33 +26,7 @@ namespace WebsiteCommunity.Repository
         }
         public void UpdateById(Event event1)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.Events_UpdateById";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@EventID", event1.EventID));
-                command.Parameters.Add(new SqlParameter("@EventName", event1.EventName));
-                command.Parameters.Add(new SqlParameter("@Description", event1.Description));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.UpdateById<Event>(connectionString, "Events_UpdateById", GetParameters);
         }
         public void DeleteById(Guid id)
         {
@@ -94,11 +42,11 @@ namespace WebsiteCommunity.Repository
             return event1;
 
         }
-        protected override SqlParameter[] GetParameters(SqlParameter[] parameter)
+        protected override SqlParameter[] GetParameters(Event event1)
         {
-            Department department = new Department();
-            SqlCommand command = new SqlCommand();
-            //SqlParameter parameter = new SqlParameter();
+            SqlParameter[] parameter = { new SqlParameter("@EventID", event1.EventID),
+                                         new SqlParameter("@EventName", event1.EventName),
+                                         new SqlParameter("@Description", event1.Description) };
             return parameter;
         }
         #endregion 

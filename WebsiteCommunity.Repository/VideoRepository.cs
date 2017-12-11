@@ -18,32 +18,7 @@ namespace WebsiteCommunity.Repository
         }
         public void Insert(Video video)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.Video_Create";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@VideoID", video.VideoID));
-                command.Parameters.Add(new SqlParameter("@VideoTypeName", video.VideoTypeName));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.Insert<Video>(connectionString, "Video_Create", GetParameters);
         }       
         public void ReadById(Guid id)
         {
@@ -51,32 +26,7 @@ namespace WebsiteCommunity.Repository
         }
         public void UpdateById(Video video)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.Video_UpdateById";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@VideoID", video.VideoID));
-                command.Parameters.Add(new SqlParameter("@VideoTypeName", video.VideoTypeName));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.UpdateById<Video>(connectionString, "Video_UpdateById", GetParameters);
         }
         public void DeleteById(Guid id)
         {
@@ -89,11 +39,10 @@ namespace WebsiteCommunity.Repository
             video.VideoTypeName = reader.GetString(reader.GetOrdinal("VideoTypeName"));
             return video;
         }
-        protected override SqlParameter[] GetParameters(SqlParameter[] parameter)
+        protected override SqlParameter[] GetParameters(Video video)
         {
-            Department department = new Department();
-            SqlCommand command = new SqlCommand();
-            //SqlParameter parameter = new SqlParameter();
+            SqlParameter[] parameter = { new SqlParameter("@VideoID", video.VideoID),
+                                         new SqlParameter("@VideoTypeName", video.VideoTypeName) };
             return parameter;
         }
         #endregion

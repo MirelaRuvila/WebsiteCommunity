@@ -16,15 +16,15 @@ namespace WebsiteCommunity
             Department department1 = new Department();
             Department department5 = new Department();
             department1.DepartmentID = Guid.NewGuid();
-            department1.DepartmentName = "Medical";
+            department1.DepartmentName = "Medicaleee";
             department1.Description = "Help others";
 
             department5.DepartmentID = Guid.NewGuid();
-            department5.DepartmentName = "Social";
+            department5.DepartmentName = "Socialee";
             department5.Description = "be nice with people";
 
-            departmentRepository.Insert1(department1);
-            departmentRepository.Insert1(department5);
+            departmentRepository.Insert(department1);
+            departmentRepository.Insert(department5);
             
             //Department departmenty = new Department();
 
