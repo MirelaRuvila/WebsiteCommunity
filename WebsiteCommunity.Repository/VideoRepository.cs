@@ -5,51 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using WebsiteCommunity.Models;
+using WebsiteCommunity.Repository.Core;
 
 namespace WebsiteCommunity.Repository
 {
-    class VideoRepository
+    public class VideoRepository : BaseRepository<Video>
     {
         #region Methods
         public List<Video> ReadAll()
         {
-            List<Video> videos = new List<Video>();
-            string connectionString = "Data Source=LIGIA-PC\\SQLEXPRESS;Initial Catalog=Community;Integrated Security=True";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Video_ReadAll";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Video video = new Video();
-                                video.VideoID = reader.GetGuid(reader.GetOrdinal("VideoID"));
-                                video.VideoTypeName = reader.GetString(reader.GetOrdinal("VideoTypeName"));
-                                videos.Add(video);
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("There was an error: {0}", ex.ToString());
-                }
-            }
-            return videos;
+            return DatabaseManager.ReadAll<Video>(connectionString, "Video_ReadAll", GetModelFromReader);
         }
         public void Insert(Video video)
         {
-            string connectionString = "Data Source=LIGIA-PC\\SQLEXPRESS;Initial Catalog=Community;Integrated Security=True";
-
             SqlConnection connection = new SqlConnection(connectionString);
             try
             {
@@ -76,46 +44,13 @@ namespace WebsiteCommunity.Repository
             {
                 connection.Close();
             }
-        }
-        public void ReadById(Guid Id)
+        }       
+        public void ReadById(Guid id)
         {
-            string connectionString = "Data Source=LIGIA-PC\\SQLEXPRESS;Initial Catalog=Community;Integrated Security=True";
-            Video video = new Video();
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.Connection = connection;
-                        command.CommandText = "dbo.Video_ReadById";
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                        command.Parameters.Add(new SqlParameter("@VideoID", Id));
-
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                video.VideoID = reader.GetGuid(reader.GetOrdinal("VideoID"));
-                                video.VideoTypeName = reader.GetString(reader.GetOrdinal("VideoTypeName"));
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("There was an error {0}", ex.ToString());
-                }
-            }
+            DatabaseManager.ReadById<Video>(connectionString, "Video_ReadById", "@VideoID", id, GetModelFromReader);
         }
-        public void UpdateById(Guid Id)
+        public void UpdateById(Video video)
         {
-            Video video = new Video();
-            string connectionString = "Data Source=LIGIA-PC\\SQLEXPRESS;Initial Catalog=Community;Integrated Security=True";
-
             SqlConnection connection = new SqlConnection(connectionString);
             try
             {
@@ -124,7 +59,7 @@ namespace WebsiteCommunity.Repository
                 command.CommandText = "dbo.Video_UpdateById";
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                command.Parameters.Add(new SqlParameter("@VideoID", Id));
+                command.Parameters.Add(new SqlParameter("@VideoID", video.VideoID));
                 command.Parameters.Add(new SqlParameter("@VideoTypeName", video.VideoTypeName));
 
                 connection.Open();
@@ -143,36 +78,23 @@ namespace WebsiteCommunity.Repository
                 connection.Close();
             }
         }
-        public void DeleteById(Guid Id)
+        public void DeleteById(Guid id)
         {
-            string connectionString = "Data Source=LIGIA-PC\\SQLEXPRESS;Initial Catalog=Community;Integrated Security=True";
-
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.Video_DeleteById";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@VideoID", Id));
-                connection.Open();
-
-                command.ExecuteNonQuery();
-            }
-
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            DatabaseManager.DeleteById<Video>(connectionString, "Video_DeleteById", "@VideoID", id);
+        }
+        protected override Video GetModelFromReader(SqlDataReader reader)
+        {
+            Video video = new Video();
+            video.VideoID = reader.GetGuid(reader.GetOrdinal("VideoID"));
+            video.VideoTypeName = reader.GetString(reader.GetOrdinal("VideoTypeName"));
+            return video;
+        }
+        protected override SqlParameter[] GetParameters(SqlParameter[] parameter)
+        {
+            Department department = new Department();
+            SqlCommand command = new SqlCommand();
+            //SqlParameter parameter = new SqlParameter();
+            return parameter;
         }
         #endregion
     }

@@ -14,33 +14,46 @@ namespace WebsiteCommunity
         {
             DepartmentRepository departmentRepository = new DepartmentRepository();
             Department department1 = new Department();
-
+            Department department5 = new Department();
             department1.DepartmentID = Guid.NewGuid();
-            department1.DepartmentName = "Social";
-            department1.Description = "be nice, be creative";
+            department1.DepartmentName = "Medical";
+            department1.Description = "Help others";
 
-            departmentRepository.Insert(department1);
+            department5.DepartmentID = Guid.NewGuid();
+            department5.DepartmentName = "Social";
+            department5.Description = "be nice with people";
+
+            departmentRepository.Insert1(department1);
+            departmentRepository.Insert1(department5);
+            
+            //Department departmenty = new Department();
+
+            //departmenty.DepartmentID = Guid.NewGuid();
+            //departmenty.DepartmentName = "asa vreau";
+            //departmenty.Description = "be nice, be creative";
+            //departmentRepository.Insert(departmenty);
 
             List<Department> departments = departmentRepository.ReadAll();
-            foreach(Department department in departments)
+            foreach (Department department in departments)
             {
                 Console.WriteLine("{0} {1}", department.DepartmentName, department.Description);
             }
             Console.WriteLine("\n");
             departmentRepository.ReadById(department1.DepartmentID);
-            //Console.WriteLine(department1.DepartmentName);
-            
-            department1.DepartmentName = "Medical";
-            department1.Description = "";
-            departmentRepository.UpdateById(department1.DepartmentID, department1);
-            Console.WriteLine("{0} {1}", department1.DepartmentName, department1.Description);
-            Console.WriteLine("\n");
+            Console.WriteLine("{0} {1} {2}", department1.DepartmentID, department1.DepartmentName, department1.Description);
 
-            Department department2 = new Department();
-            department2.DepartmentID = Guid.NewGuid();
-            department2.DepartmentName = "Example";
-            department2.Description = "";
-            departmentRepository.Insert(department2);
+            departmentRepository.DeleteById(department1.DepartmentID);
+            //department1.DepartmentName = "Medical";
+            //department1.Description = "";
+            //departmentRepository.UpdateById(department1);
+            //Console.WriteLine("{0} {1}", department1.DepartmentName, department1.Description);
+            //Console.WriteLine("\n");
+
+            //Department department2 = new Department();
+            //department2.DepartmentID = Guid.NewGuid();
+            //department2.DepartmentName = "Example";
+            //department2.Description = "";
+            //departmentRepository.Insert1(department2);
 
             List<Department> departments1 = departmentRepository.ReadAll();
             foreach (Department department in departments1)
@@ -49,14 +62,14 @@ namespace WebsiteCommunity
             }
             Console.WriteLine("\n");
 
-            departmentRepository.DeleteById(department2.DepartmentID);
+            //departmentRepository.DeleteById(department2.DepartmentID);
 
-            Console.WriteLine("Departamentele ramase: ");
-            List<Department> departments2 = departmentRepository.ReadAll();
-            foreach (Department department in departments2)
-            {
-                Console.WriteLine("{0} {1}", department.DepartmentName, department.Description);
-            }
+            //Console.WriteLine("Departamentele ramase: ");
+            //List<Department> departments2 = departmentRepository.ReadAll();
+            //foreach (Department department in departments2)
+            //{
+            //    Console.WriteLine("{0} {1}", department.DepartmentName, department.Description);
+            //}
             Console.Read();
 
         }

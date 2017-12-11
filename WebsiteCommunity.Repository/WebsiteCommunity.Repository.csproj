@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveRepository.cs" />
+    <Compile Include="Core\BaseRepository.cs" />
+    <Compile Include="Core\DatabaseManager.cs" />
+    <Compile Include="Core\RepositoryContext.cs" />
     <Compile Include="DepartmentRepository.cs" />
     <Compile Include="EventRepository.cs" />
     <Compile Include="ImageRepository.cs" />
