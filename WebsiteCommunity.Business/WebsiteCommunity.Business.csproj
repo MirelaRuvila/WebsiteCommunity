@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9C1131C3-AA21-40C1-8096-F73DFF2A8C7B}</ProjectGuid>
+    <ProjectGuid>{C5F8E22B-80E6-40AB-A7AB-EC21B80EBC47}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebsiteCommunity.Repository</RootNamespace>
-    <AssemblyName>WebsiteCommunity.Repository</AssemblyName>
+    <RootNamespace>WebsiteCommunity.Business</RootNamespace>
+    <AssemblyName>WebsiteCommunity.Business</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,26 +40,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArchiveRepository.cs" />
-    <Compile Include="Core\BaseRepository.cs" />
-    <Compile Include="Core\DatabaseManager.cs" />
-    <Compile Include="Core\RepositoryContext.cs" />
-    <Compile Include="DepartmentRepository.cs" />
-    <Compile Include="EventRepository.cs" />
-    <Compile Include="ImageRepository.cs" />
-    <Compile Include="ImgPhotoGalleryRepository.cs" />
-    <Compile Include="PhotoGalleryRepository.cs" />
+    <Compile Include="ArchiveBusiness.cs" />
+    <Compile Include="Core\BusinessContext.cs" />
+    <Compile Include="DepartmentBusiness.cs" />
+    <Compile Include="EventBusiness.cs" />
+    <Compile Include="ImageBusiness.cs" />
+    <Compile Include="ImgPhotoGalleryBusiness.cs" />
+    <Compile Include="PhotoGalleryBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VideoRepository.cs" />
+    <Compile Include="VideoBusiness.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebsiteCommunity.Models\WebsiteCommunity.Models.csproj">
-      <Project>{b457b11b-1392-4cd8-a848-19dc0ab4759e}</Project>
+      <Project>{B457B11B-1392-4CD8-A848-19DC0AB4759E}</Project>
       <Name>WebsiteCommunity.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebsiteCommunity.RepositoryAbstraction\WebsiteCommunity.RepositoryAbstraction.csproj">
       <Project>{3f8502f3-af46-4561-af45-aab276b10967}</Project>
       <Name>WebsiteCommunity.RepositoryAbstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebsiteCommunity.RepositoryFactory\WebsiteCommunity.RepositoryFactory.csproj">
+      <Project>{d2ab9e8d-9710-4d93-8594-228f202179bd}</Project>
+      <Name>WebsiteCommunity.RepositoryFactory</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using WebsiteCommunity.Models;
 using WebsiteCommunity.Repository.Core;
+using WebsiteCommunity.RepositoryAbstraction;
 
 namespace WebsiteCommunity.Repository
 {
-    public class ImgPhotoGalleryRepository : BaseRepository <ImgPhotoGallery>
+    public class ImgPhotoGalleryRepository : BaseRepository <ImgPhotoGallery> , IImgPhotoGalleryRepository
     {
         #region Methods
         public List<ImgPhotoGallery> ReadAll()
         {
             return DatabaseManager.ReadAll(connectionString, "ImgPhotoGallery_ReadAll", GetModelFromReader);
         }       
-        public void Insert(ImgPhotoGallery imgPhotoGallery)
+        public ImgPhotoGallery Insert(ImgPhotoGallery imgPhotoGallery)
         {
-            DatabaseManager.Insert<ImgPhotoGallery>(connectionString, "ImgPhotoGallery_Create", GetParameters);
+            return DatabaseManager.ExecuteNonQuery<ImgPhotoGallery>(imgPhotoGallery, connectionString, "ImgPhotoGallery_Create", GetParameters);
         }
         protected override ImgPhotoGallery GetModelFromReader(SqlDataReader reader)
         {

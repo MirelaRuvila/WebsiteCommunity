@@ -49,13 +49,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WebsiteCommunity.Business\WebsiteCommunity.Business.csproj">
+      <Project>{c5f8e22b-80e6-40ab-a7ab-ec21b80ebc47}</Project>
+      <Name>WebsiteCommunity.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebsiteCommunity.Library\WebsiteCommunity.Library.csproj">
+      <Project>{08c00e74-ab64-4941-a837-93018f3fe60b}</Project>
+      <Name>WebsiteCommunity.Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebsiteCommunity.Models\WebsiteCommunity.Models.csproj">
       <Project>{b457b11b-1392-4cd8-a848-19dc0ab4759e}</Project>
       <Name>WebsiteCommunity.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebsiteCommunity.Repository\WebsiteCommunity.Repository.csproj">
-      <Project>{9c1131c3-aa21-40c1-8096-f73dff2a8c7b}</Project>
-      <Name>WebsiteCommunity.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

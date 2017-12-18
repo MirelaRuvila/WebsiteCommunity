@@ -16,6 +16,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{F7193CAF-9BE
 		D:\work\CreateDBandSP.sql = D:\work\CreateDBandSP.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteCommunity.Business", "WebsiteCommunity.Business\WebsiteCommunity.Business.csproj", "{C5F8E22B-80E6-40AB-A7AB-EC21B80EBC47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteCommunity.RepositoryFactory", "WebsiteCommunity.RepositoryFactory\WebsiteCommunity.RepositoryFactory.csproj", "{D2AB9E8D-9710-4D93-8594-228F202179BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteCommunity.RepositoryAbstraction", "WebsiteCommunity.RepositoryAbstraction\WebsiteCommunity.RepositoryAbstraction.csproj", "{3F8502F3-AF46-4561-AF45-AAB276B10967}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +44,18 @@ Global
 		{08C00E74-AB64-4941-A837-93018F3FE60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08C00E74-AB64-4941-A837-93018F3FE60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08C00E74-AB64-4941-A837-93018F3FE60B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F8E22B-80E6-40AB-A7AB-EC21B80EBC47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F8E22B-80E6-40AB-A7AB-EC21B80EBC47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F8E22B-80E6-40AB-A7AB-EC21B80EBC47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F8E22B-80E6-40AB-A7AB-EC21B80EBC47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2AB9E8D-9710-4D93-8594-228F202179BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2AB9E8D-9710-4D93-8594-228F202179BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2AB9E8D-9710-4D93-8594-228F202179BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2AB9E8D-9710-4D93-8594-228F202179BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F8502F3-AF46-4561-AF45-AAB276B10967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F8502F3-AF46-4561-AF45-AAB276B10967}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F8502F3-AF46-4561-AF45-AAB276B10967}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F8502F3-AF46-4561-AF45-AAB276B10967}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

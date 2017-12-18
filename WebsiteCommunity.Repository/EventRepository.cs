@@ -6,31 +6,32 @@ using System.Threading.Tasks;
 using WebsiteCommunity.Models;
 using System.Data.SqlClient;
 using WebsiteCommunity.Repository.Core;
+using WebsiteCommunity.RepositoryAbstraction;
 
 namespace WebsiteCommunity.Repository
 {
-    public class EventRepository : BaseRepository<Event>
+    public class EventRepository : BaseRepository<Event> , IEventRepository
     {
         #region Methods
         public List<Event> ReadAll()
         {
             return DatabaseManager.ReadAll<Event>(connectionString, "Events_ReadAll", GetModelFromReader);
         }
-        public void Insert(Event event1)
+        public Event Insert(Event event1)
         {
-            DatabaseManager.Insert<Event>(connectionString, "Events_Create", GetParameters);
+            return DatabaseManager.ExecuteNonQuery<Event>(event1, connectionString, "Events_Create", GetParameters);
         }
-        public void ReadById(Guid id)
+        public Event ReadById(Guid id)
         {
-            DatabaseManager.ReadById<Event>(connectionString, "Events_ReadById", "@EventID", id, GetModelFromReader);
+            return DatabaseManager.ReadById<Event>(connectionString, "Events_ReadById", "@EventID", id, GetModelFromReader);
         }
-        public void UpdateById(Event event1)
-        {
-            DatabaseManager.UpdateById<Event>(connectionString, "Events_UpdateById", GetParameters);
+        public Event UpdateById(Event event1)
+        { 
+           return DatabaseManager.ExecuteNonQuery<Event>(event1, connectionString, "Events_UpdateById", GetParameters);
         }
-        public void DeleteById(Guid id)
+        public Event Delete(Guid id)
         {
-            DatabaseManager.DeleteById<Event>(connectionString, "Events_DeleteById", "@EventID", id);
+            return DatabaseManager.Delete<Event>(connectionString, "Events_DeleteById", "@EventID", id);
         }
 
         protected override Event GetModelFromReader(SqlDataReader reader)

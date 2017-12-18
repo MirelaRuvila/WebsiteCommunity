@@ -6,31 +6,32 @@ using System.Threading.Tasks;
 using WebsiteCommunity.Models;
 using System.Data.SqlClient;
 using WebsiteCommunity.Repository.Core;
+using WebsiteCommunity.RepositoryAbstraction;
 
 namespace WebsiteCommunity.Repository
 {
-    public class PhotoGalleryRepository : BaseRepository<PhotoGallery>
+    public class PhotoGalleryRepository : BaseRepository<PhotoGallery> , IPhotoGalleryRepository
     {
         #region Methods
         public List<PhotoGallery> ReadAll()
         {
             return DatabaseManager.ReadAll<PhotoGallery>(connectionString, "PhotoGallery_ReadAll", GetModelFromReader);
         }
-        public void Insert(PhotoGallery photoGallery)
+        public PhotoGallery Insert(PhotoGallery photoGallery)
         {
-            DatabaseManager.Insert<PhotoGallery>(connectionString, "PhotoGallery_Create", GetParameters);
+            return DatabaseManager.ExecuteNonQuery<PhotoGallery>(photoGallery, connectionString, "PhotoGallery_Create", GetParameters);
         }       
-        public void ReadById(Guid id)
+        public PhotoGallery ReadById(Guid id)
         {
-            DatabaseManager.ReadById<PhotoGallery>(connectionString, "PhotoGallery_ReadById", "@PhotoGalleryID", id, GetModelFromReader);
+            return DatabaseManager.ReadById<PhotoGallery>(connectionString, "PhotoGallery_ReadById", "@PhotoGalleryID", id, GetModelFromReader);
         }
-        public void UpdateById(PhotoGallery photoGallery)
+        public PhotoGallery UpdateById(PhotoGallery photoGallery)
         {
-            DatabaseManager.UpdateById<PhotoGallery>(connectionString, "PhotoGallery_UpdateById", GetParameters);
+            return DatabaseManager.ExecuteNonQuery<PhotoGallery>(photoGallery, connectionString, "PhotoGallery_UpdateById", GetParameters);
         }
-        public void DeleteById(Guid id)
+        public PhotoGallery Delete(Guid id)
         {
-            DatabaseManager.DeleteById<PhotoGallery>(connectionString, "PhotoGallery_DeleteById", "@PhotoGalleryID", id);
+            return DatabaseManager.Delete<PhotoGallery>(connectionString, "PhotoGallery_DeleteById", "@PhotoGalleryID", id);
         }
         protected override PhotoGallery GetModelFromReader(SqlDataReader reader)
         {

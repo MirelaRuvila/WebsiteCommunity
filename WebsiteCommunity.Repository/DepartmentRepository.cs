@@ -6,34 +6,33 @@ using System.Threading.Tasks;
 using WebsiteCommunity.Models;
 using System.Data.SqlClient;
 using WebsiteCommunity.Repository.Core;
+using WebsiteCommunity.RepositoryAbstraction;
 
 namespace WebsiteCommunity.Repository 
 {
-    public class DepartmentRepository : BaseRepository<Department>
+    public class DepartmentRepository : BaseRepository<Department> , IDepartmentRepository
     {
         #region Methods
         public List<Department> ReadAll()
         {
-            return DatabaseManager.ReadAll<Department>(connectionString, "dbo.Departments_ReadAll",
-                GetModelFromReader);
-            //return ReadAll("dbo.Students_ReadAll");
+            return DatabaseManager.ReadAll<Department>(connectionString, "dbo.Departments_ReadAll", GetModelFromReader);
         }
 
-        public void Insert(Department department)
+        public Department Insert(Department department)
         {
-            DatabaseManager.Insert<Department>(connectionString, "Departments_Create", GetParameters);
+           return DatabaseManager.ExecuteNonQuery<Department>(department, connectionString, "Departments_Create", GetParameters);
         }
-        public void ReadById(Guid id)
+        public Department ReadById(Guid id)
         {
-            DatabaseManager.ReadById<Department>(connectionString, "Departments_ReadById", "@DepartmentID", id, GetModelFromReader);
+           return DatabaseManager.ReadById<Department>(connectionString, "Departments_ReadById", "@DepartmentID", id, GetModelFromReader);
         }
-        public void UpdateById(Department department)
+        public Department UpdateById(Department department)
         {
-            DatabaseManager.UpdateById<Department>(connectionString, "Departments_UpdateById", GetParameters);     
+           return DatabaseManager.ExecuteNonQuery<Department>(department, connectionString, "Departments_UpdateById", GetParameters);     
         }        
-        public void DeleteById(Guid id)
+        public Department Delete(Guid id)
         {
-            DatabaseManager.DeleteById<Department>(connectionString, "Departments_DeleteById", "@DepartmentID", id);
+           return DatabaseManager.Delete<Department>(connectionString, "Departments_DeleteById", "@DepartmentID", id);
         }
 
         protected override Department GetModelFromReader(SqlDataReader reader)

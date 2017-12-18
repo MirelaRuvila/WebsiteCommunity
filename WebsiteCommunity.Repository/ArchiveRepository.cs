@@ -6,59 +6,32 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using WebsiteCommunity.Models;
 using WebsiteCommunity.Repository.Core;
+using WebsiteCommunity.RepositoryAbstraction;
 
 namespace WebsiteCommunity.Repository
 {
-    public class ArchiveRepository : BaseRepository<Archive>
+    public class ArchiveRepository : BaseRepository<Archive> , IArchiveRepository
     {
         #region Methods
         public List<Archive> ReadAll()
         {
             return DatabaseManager.ReadAll<Archive>(connectionString, "Archives_ReadAll", GetModelFromReader);        
         }        
-        public void Insert(Archive archive)
+        public Archive Insert(Archive archive)
         {
-            SqlConnection connection = new SqlConnection(connectionString);
-            try
-            {
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandText = "dbo.Archives_Create";
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.Add(new SqlParameter("@ArchiveID", archive.ArchiveID));
-                command.Parameters.Add(new SqlParameter("@ArchiveName", archive.ArchiveName));
-                command.Parameters.Add(new SqlParameter("@VideoID", archive.VideoID));
-                command.Parameters.Add(new SqlParameter("@Data", archive.Data));
-                command.Parameters.Add(new SqlParameter("@Description", archive.Description));
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine("There was an SQL error: {0}", sqlEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("There was an error: {0}", ex.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+           return DatabaseManager.ExecuteNonQuery<Archive>(archive, connectionString, "Archives_Create", GetParameters);
         }
-        public void ReadById(Guid id)
+        public Archive ReadById(Guid id)
         {
-            DatabaseManager.ReadById<Archive>(connectionString, "Archives_ReadById", "@ArchiveID", id, GetModelFromReader);
+           return DatabaseManager.ReadById<Archive>(connectionString, "Archives_ReadById", "@ArchiveID", id, GetModelFromReader);
         }
-        public void UpdateById(Archive archive)
+        public Archive UpdateById(Archive archive)
         {
-            DatabaseManager.UpdateById<Archive>(connectionString, "Archives_UpdateById", GetParameters);
+           return DatabaseManager.ExecuteNonQuery<Archive>(archive, connectionString, "Archives_UpdateById", GetParameters);
         }
-        public void DeleteById(Guid id)
+        public Archive Delete(Guid id)
         {
-            DatabaseManager.DeleteById<Archive>(connectionString, "Archives_DeleteById", "@ArchiveID", id);
+           return DatabaseManager.Delete<Archive>(connectionString, "Archives_DeleteById", "@ArchiveID", id);
         }
         protected override Archive GetModelFromReader(SqlDataReader reader)
         {

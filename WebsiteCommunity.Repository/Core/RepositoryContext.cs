@@ -3,23 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebsiteCommunity.RepositoryAbstraction;
+using WebsiteCommunity.RepositoryAbstraction.Core;
 
 namespace WebsiteCommunity.Repository.Core
 {
-    public class RepositoryContext : IDisposable
+    public class RepositoryContext : IRepositoryContext
     {
         #region Members
-        private DepartmentRepository _departmentRepository;
-        private ArchiveRepository _archiveRepository;
-        private EventRepository _eventRepository;
-        private ImageRepository _imageRepository;
-        private ImgPhotoGalleryRepository _imgPhotoGalleryRepository;
-        private PhotoGalleryRepository _photoGalleryRepository;
-        private VideoRepository _videoRepository;
+        private static IRepositoryContext _instance;
+        private IDepartmentRepository _departmentRepository;
+        private IArchiveRepository _archiveRepository;
+        private IEventRepository _eventRepository;
+        private IImageRepository _imageRepository;
+        private IImgPhotoGalleryRepository _imgPhotoGalleryRepository;
+        private IPhotoGalleryRepository _photoGalleryRepository;
+        private IVideoRepository _videoRepository;
+        #endregion
+
+        #region Constructor
+        public RepositoryContext()
+        {
+            _instance = this;
+        }
         #endregion
 
         #region Properties
-        public DepartmentRepository DepartmentRepository
+        internal static IRepositoryContext Current
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    throw new Exception("No RepositoryContext instance available!");
+                }
+                return _instance;
+            }
+        }
+        public IDepartmentRepository DepartmentRepository
         {
             get
             {
@@ -28,7 +49,7 @@ namespace WebsiteCommunity.Repository.Core
                 return _departmentRepository;
             }
         }
-        public ArchiveRepository ArchiveRepository
+        public IArchiveRepository ArchiveRepository
         {
             get
             {
@@ -37,7 +58,7 @@ namespace WebsiteCommunity.Repository.Core
                 return _archiveRepository;
             }
         }
-        public EventRepository EventRepository
+        public IEventRepository EventRepository
         {
             get
             {
@@ -46,7 +67,7 @@ namespace WebsiteCommunity.Repository.Core
                 return _eventRepository;
             }
         }
-        public ImageRepository ImageRepository
+        public IImageRepository ImageRepository
         {
             get
             {
@@ -55,7 +76,7 @@ namespace WebsiteCommunity.Repository.Core
                 return _imageRepository;
             }
         }
-        public ImgPhotoGalleryRepository ImgPhotoGalleryRepository
+        public IImgPhotoGalleryRepository ImgPhotoGalleryRepository
         {
             get
             {
@@ -64,7 +85,7 @@ namespace WebsiteCommunity.Repository.Core
                 return _imgPhotoGalleryRepository;
             }
         }
-        public PhotoGalleryRepository PhotoGalleryRepository
+        public IPhotoGalleryRepository PhotoGalleryRepository
         {
             get
             {
@@ -73,7 +94,7 @@ namespace WebsiteCommunity.Repository.Core
                 return _photoGalleryRepository;
             }
         }
-        public VideoRepository VideoRepository
+        public IVideoRepository VideoRepository
         {
             get
             {
@@ -83,6 +104,7 @@ namespace WebsiteCommunity.Repository.Core
             }
         }
         #endregion
+
         #region IDisposable Implementation
         public void Dispose()
         {
@@ -125,7 +147,15 @@ namespace WebsiteCommunity.Repository.Core
                 {
                     _videoRepository = null;
                 }
+                if (_instance != null)
+                {
+                    _instance = null;
+                }
             }
+        }
+        ~RepositoryContext()
+        {
+            Dispose(false);
         }
 #endregion
     }

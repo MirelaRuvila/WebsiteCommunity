@@ -6,31 +6,32 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using WebsiteCommunity.Models;
 using WebsiteCommunity.Repository.Core;
+using WebsiteCommunity.RepositoryAbstraction;
 
 namespace WebsiteCommunity.Repository
 {
-    public class VideoRepository : BaseRepository<Video>
+    public class VideoRepository : BaseRepository<Video> , IVideoRepository
     {
         #region Methods
         public List<Video> ReadAll()
         {
             return DatabaseManager.ReadAll<Video>(connectionString, "Video_ReadAll", GetModelFromReader);
         }
-        public void Insert(Video video)
+        public Video Insert(Video video)
         {
-            DatabaseManager.Insert<Video>(connectionString, "Video_Create", GetParameters);
+            return DatabaseManager.ExecuteNonQuery<Video>(video, connectionString, "Video_Create", GetParameters);
         }       
-        public void ReadById(Guid id)
+        public Video ReadById(Guid id)
         {
-            DatabaseManager.ReadById<Video>(connectionString, "Video_ReadById", "@VideoID", id, GetModelFromReader);
+            return DatabaseManager.ReadById<Video>(connectionString, "Video_ReadById", "@VideoID", id, GetModelFromReader);
         }
-        public void UpdateById(Video video)
+        public Video UpdateById(Video video)
         {
-            DatabaseManager.UpdateById<Video>(connectionString, "Video_UpdateById", GetParameters);
+            return DatabaseManager.ExecuteNonQuery<Video>(video, connectionString, "Video_UpdateById", GetParameters);
         }
-        public void DeleteById(Guid id)
+        public Video Delete(Guid id)
         {
-            DatabaseManager.DeleteById<Video>(connectionString, "Video_DeleteById", "@VideoID", id);
+            return DatabaseManager.Delete<Video>(connectionString, "Video_DeleteById", "@VideoID", id);
         }
         protected override Video GetModelFromReader(SqlDataReader reader)
         {
