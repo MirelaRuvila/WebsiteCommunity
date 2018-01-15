@@ -1,27 +1,33 @@
-﻿var MenuController = function () {
+﻿var MenuController = function (serviceContext) {
     //trick to preserve the instance of the MenuController where 'this' changes its meaning
     var _self = this;
 
+    var _departmentController = new DepartmentsController(serviceContext);
     var _menuElements = [
         {
             Id: "Home",
-            ContainerId: "divHomeContainer"
+            ContainerId: "divHomeContainer",
+            Controller: null
         },
         {
             Id: "About Us",
-            ContainerId: "divAboutUsContainer"
+            ContainerId: "divAboutUsContainer",
+            Controller:null
         },
         {
             Id: "Departments",
-            ContainerId: "divDepartmentsContainer"
+            ContainerId: "divDepartmentsContainer",
+            Controller: _departmentController
         },
         {
             Id: "Events",
-            ContainerId: "divEventsContainer"
+            ContainerId: "divEventsContainer",
+            Controller: null
         },
         {
             Id: "Video",
-            ContainerId: "divVideoContainer"
+            ContainerId: "divVideoContainer",
+            Controller: null
         },
         {
             Id: "Photo Gallery",
@@ -45,11 +51,13 @@
         var jqSelectedListItem = $(this); //'this' is not the same as the one from 'this.GenerateMenu'
         //get the id of the clicked list item
         var selectedId = jqSelectedListItem.attr("id");
+        var menuElementId;
         //get the containerId for the selected Id
         var selectedContainerId;
         for (index = 0; index < _menuElements.length; index++) {
             if (_menuElements[index].Id === selectedId) {
                 selectedContainerId = _menuElements[index].ContainerId;
+                menuElementId = index;
                 //we found it, we exit the for
                 break;
             }
@@ -65,6 +73,7 @@
             }
             else {
                 $(mainContainers[i]).show();
+                _menuElements[menuElementId].Controller.RenderPage();
             }
         }
     }
