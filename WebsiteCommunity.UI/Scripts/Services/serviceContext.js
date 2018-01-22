@@ -4,6 +4,7 @@
     var _photoGalleryService;
     var _videoService;
 
+    
     this.DepartmentsService = function () {
         if (!_departmentService) {
             _departmentService = new DepartmentsService();

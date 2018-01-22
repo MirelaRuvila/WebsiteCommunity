@@ -26,6 +26,7 @@
     <script src="Scripts/Controllers/departmentsController.js"></script>
     <script src="Scripts/menuController.js"></script>
     <script src="Scripts/appController.js"></script>
+    <script src="Scripts/GetDataFromDB.js"></script>
     <script>
         function getContent(fragmentId) {
             return fragmentId;
@@ -110,7 +111,13 @@
                 <p>This is the Departments Page.</p>
                 <div id="divDepartmentsCards" class="row">
                 </div>
-                
+                <table class="table table-bordered" id="Table">
+                    <tr>
+                        <th id="departmentId">Department Id</th>
+                        <th id="departmentName">Department Name</th>
+                        <th id="description">Department Description</th>
+                    </tr>   <!--end of table-row -->
+                </table>   <!--end of table -->
             </div>
             <div id="divEventsContainer" style="display:none">
                 <h2>Events</h2>

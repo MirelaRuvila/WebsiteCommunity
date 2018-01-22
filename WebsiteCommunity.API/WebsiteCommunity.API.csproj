@@ -8,18 +8,18 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A5508743-7EBE-475A-B142-172B2E64BE2F}</ProjectGuid>
+    <ProjectGuid>{97716593-0515-4B9A-8C22-76653216EFEC}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebsiteCommunity.UI</RootNamespace>
-    <AssemblyName>WebsiteCommunity.UI</AssemblyName>
+    <RootNamespace>WebsiteCommunity.API</RootNamespace>
+    <AssemblyName>WebsiteCommunity.API</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -48,14 +48,7 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -68,10 +61,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http.Cors">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -83,20 +73,40 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AjaxDB.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\PhotoGalleryController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
+    <Compile Include="GetDataFromDatabase.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Assets\choir.jpg" />
-    <Content Include="Assets\Community.png" />
-    <Content Include="Assets\kids.jpg" />
-    <Content Include="Assets\media.jpg" />
-    <Content Include="Scripts\Controllers\departmentDetailsController.js" />
-    <Content Include="Scripts\Controllers\departmentsController.js" />
-    <Content Include="Scripts\External\bootstrap.bundle.js.map" />
-    <Content Include="Scripts\External\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\Controllers\departmentCardController.js" />
-    <Content Include="Scripts\GetDataFromDB.js" />
-    <Content Include="Scripts\Services\serviceContext.js" />
-    <Content Include="Style\bootstrap.css.map" />
-    <Content Include="Style\bootstrap.min.css.map" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -105,34 +115,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\5ca9b0b4c623200c8d484faa94920594--church-logo-eucharist.jpg" />
-    <Content Include="Assets\CommunityLogo.png" />
-    <Content Include="Assets\social.jpg" />
-    <Content Include="index.html" />
-    <Content Include="Scripts\appController.js" />
-    <Content Include="Scripts\Services\departmentsService.js" />
-    <Content Include="Scripts\Controllers\eventsController.js" />
-    <Content Include="Scripts\Services\eventsService.js" />
-    <Content Include="Scripts\External\bootstrap.bundle.js" />
-    <Content Include="Scripts\External\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\External\jquery-3.2.1.min.js" />
-    <Content Include="Scripts\menuController.js" />
-    <Content Include="Scripts\Controllers\photoGalleryController.js" />
-    <Content Include="Scripts\Services\photoGalleryService.js" />
-    <Content Include="Scripts\Controllers\videoController.js" />
-    <Content Include="Scripts\Services\videoService.js" />
-    <Content Include="Style\bootstrap.css" />
-    <Content Include="Style\bootstrap.min.css" />
-    <Content Include="Web.config" />
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WebsiteCommunity.API\WebsiteCommunity.API.csproj">
-      <Project>{97716593-0515-4b9a-8c22-76653216efec}</Project>
-      <Name>WebsiteCommunity.API</Name>
+    <ProjectReference Include="..\WebsiteCommunity.Business\WebsiteCommunity.Business.csproj">
+      <Project>{c5f8e22b-80e6-40ab-a7ab-ec21b80ebc47}</Project>
+      <Name>WebsiteCommunity.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebsiteCommunity.Models\WebsiteCommunity.Models.csproj">
+      <Project>{b457b11b-1392-4cd8-a848-19dc0ab4759e}</Project>
+      <Name>WebsiteCommunity.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -147,9 +143,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52102</DevelopmentServerPort>
+          <DevelopmentServerPort>60364</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52102/</IISUrl>
+          <IISUrl>http://localhost:60364/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
